@@ -1,0 +1,51 @@
+<div class="container-fluid d-flex align-items-center" style="height: 100vh;">
+
+    <form style="margin: 0 auto;width: 25%;">
+        <h3 style="text-align: center;font-weight: 600;color: #037bff;">Sign-In</h3>
+        <hr>
+        <br />
+        <!-- Email input -->
+        <div class="form-outline mb-4">
+            <label class="form-label" for="email">Email address</label>
+            <input type="email" class="form-control" id="email" name="email" minlength="5" #email="ngModel"
+                [(ngModel)]="username" required (keyup.enter)="authenticateUser()"
+                pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$" />
+            <span *ngIf="email.invalid && (email.dirty || email.touched)" class="form-control-feedback"
+                style="font-size: 8pt !important;color: red;">
+                <span *ngIf="email.errors!.required">
+                    Email is required.
+                </span>
+                <span *ngIf="email.errors?.pattern" class="text-danger">
+                    Please provide a valid email address
+                </span>
+            </span>
+        </div>
+
+        <!-- Password input -->
+        <div class="form-outline mb-4">
+            <label class="form-label" for="pwd">Password</label>
+            <input type="password" class="form-control" id="pwd" name="pwd" #pwd="ngModel" type="password"
+                [(ngModel)]="password" required (keyup.enter)="authenticateUser()" 
+                pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$" />
+            <span *ngIf="pwd.invalid && (pwd.dirty || pwd.touched)" class="form-control-feedback"
+                style="font-size: 8pt !important;color: red;">
+                <span *ngIf="pwd.errors!.required">
+                    Password is required.
+                </span>
+                <span *ngIf="pwd.errors?.pattern" class="text-danger">
+                    Password should contain eight characters, at least one letter, one number and one special character
+                </span>
+            </span>
+        </div>
+
+        <!--new-->
+
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-primary btn-block" [disabled]="pwd.invalid || email.invalid"
+            (click)="authenticateUser()">Sign in</button>
+        <button type="submit" class="btn btn-primary btn-block" (click)="resetPassword()">Forgot Password</button>
+        <br/>
+        <hr>
+    </form>
+    
+</div>
